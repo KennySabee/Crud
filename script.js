@@ -124,6 +124,13 @@ function editarEmpleado() {
     editando = false;
 }
 
+function eliminarEmpleado(id) {
+    listaEmpleados = listaEmpleados.filter(empleado => empleado.id !== id)
+
+    limpiarHTML();
+    mostrarEmpleados();
+    
+}
 function limpiarHTML() {
     const divEmpleados = document.querySelector('.div-empleados')
     while(divEmpleados.firstChild) {
