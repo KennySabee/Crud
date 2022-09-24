@@ -21,4 +21,53 @@ function validarFormulario(e) {
         alert('Todos los campos son obligatorios')
         return;
     }
+
+    if(editando) {
+        //editarEmpleado();
+        editando = false;
+    } else{
+        objEmpleado.id = Date.now();
+        objEmpleado.nombre = nombreInput.value;
+        objEmpleado.puesto = puestoInput.value;
+
+        agregarEmpleado();
+
+    }
+}
+
+function agregarEmpleado() {
+    listaEmpleados.push({...objEmpleado})
+
+    mostrarEmpleados();
+    
+}
+
+function mostrarEmpleados() {
+    const divEmpleados = document.querySelector('.div-empleados')
+
+    listaEmpleados.forEach( empleado => {
+        const {id,nombre,puesto} = empleado;
+
+        const parrafo = document.querySelector('p');
+        parrafo.textContent = '${id} - ${nombre} - ${puesto} - ';
+        parrafo.dataset.id = id;
+
+        const editarBoton = document.createElement ('button');
+        //editarBoton.onclick = () => cargarEmpleado();
+        editarBoton.textContent = 'Editar';
+        editarBoton.classList.add('btn', 'btn-editar');
+        parrafo.append(editarBoton);
+
+        const eliminarBoton = document.createElement ('button');
+        //eliminarBoton.onclick = () => eliminarEmpleado();
+        eliminarBoton.textContent = 'Eliminar';
+        eliminarBoton.classList.add('btn', 'btn-eliminar');
+        parrafo.append(eliminarBoton);
+
+        const hr = document.createElement('hr')
+
+        divEmpleados.appendChild(parrafo);
+        divEmpleados.appendChild(hr);
+
+    });
 }
