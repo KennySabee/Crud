@@ -1,8 +1,8 @@
-let listaEmpleados= []
+let listaEmpleados= [];
 const objEmpleado = {
     id: '',
     nombre: '',
-    puesto: '',
+    puesto: ''
 
 }
 let editando = false;
@@ -31,25 +31,37 @@ function validarFormulario(e) {
         objEmpleado.puesto = puestoInput.value;
 
         agregarEmpleado();
-
     }
 }
 
 function agregarEmpleado() {
-    listaEmpleados.push({...objEmpleado})
+    listaEmpleados.push({...objEmpleado});
 
     mostrarEmpleados();
-    
+
+    formulario.reset();
+
+    limpiarObjeto();
+   
+}
+functionlimpiarObjeto() {
+    objEmpleado.id = '';
+    objEmpleado.nombre = '';
+    objEmpleado.puesto = '';
+
 }
 
 function mostrarEmpleados() {
+
+    limpiarHTML();
+
     const divEmpleados = document.querySelector('.div-empleados')
 
     listaEmpleados.forEach( empleado => {
         const {id,nombre,puesto} = empleado;
 
-        const parrafo = document.querySelector('p');
-        parrafo.textContent = '${id} - ${nombre} - ${puesto} - ';
+        const parrafo = document.createElement('p');
+        parrafo.textContent = `${id} - ${nombre} - ${puesto} - `;
         parrafo.dataset.id = id;
 
         const editarBoton = document.createElement ('button');
@@ -70,4 +82,11 @@ function mostrarEmpleados() {
         divEmpleados.appendChild(hr);
 
     });
+}
+
+function limpiarHTML() {
+    const divEmpleados = document.querySelector('.div-empleados')
+    while(divEmpleados.firstChild) {
+        divEmpleados.removeChild(divEmpleados.firstChild);   
+    }
 }
